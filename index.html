@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="header">
+    <img src="anish.png" class="logo" alt="Anish">
+    <div>
+        <h1>Indira Shiva Rao Polytechnic</h1>
+        <h2>Library Management System</h2>
+    </div>
+</div>
+
+
+
+
+<div class="nav">
+    <button class="active">Add Book</button>
+    <button>Register Member</button>
+    <button>Borrow / Return</button>
+    <button>View Books</button>
+</div>
+
+
+<div class="container">
+
+    
+    <div class="form-box">
+        <h3>Add Book</h3>
+
+        <label>Book ID</label>
+        <input type="text">
+
+        <label>Title</label>
+        <input type="text">
+
+        <label>Author</label>
+        <input type="text">
+
+        <label>Copies</label>
+        <input type="number">
+
+        <button class="primary-btn">Add Book</button>
+    </div>
+
+    <div class="notification-box">
+        <h3>Books Due for Return</h3>
+
+        <div class="notify-item">
+            <span> Python Programming</span>
+            <small>Due: 25 Apr 2024<br>Member: Rajesh</small>
+        </div>
+
+        <div class="notify-item">
+            <span> Data Science Basics</span>
+            <small>Due: 26 Apr 2024<br>Member: Priya</small>
+        </div>
+
+        <div class="notify-item overdue">
+            <span> Java Fundamentals</span>
+            <small>Overdue!<br>Member: Anil</small>
+        </div>
+
+        <a href="#" class="view-all">View All →</a>
+    </div>
+
+</div>
+
+</body>
+</html>
