@@ -1,4 +1,8 @@
-async function addBook() {
+function goTo(page){
+    window.location.href = page;
+}
+
+async function addBook(){
     const data = {
         book_id: document.getElementById("book_id").value,
         title: document.getElementById("title").value,
@@ -10,14 +14,56 @@ async function addBook() {
     alert(result);
 }
 
-async function showBooks() {
-    const books = await window.api.getBooks();
-    const output = document.getElementById("output");
+async function registerMember(){
+    const member = {
+        member_id: document.getElementById("member_id").value,
+        name: document.getElementById("member_name").value
+    };
 
-    output.innerHTML = "";
+    const result = await window.api.registerMember(member);
+    alert(result);
+}
+
+async function borrowBook(){
+    const data = {
+        member_id: document.getElementById("borrow_member_id").value,
+        book_id: document.getElementById("borrow_book_id").value
+    };
+
+    const result = await window.api.borrowBook(data);
+    alert(result);
+}
+
+async function returnBook(){
+    const data = {
+        member_id: document.getElementById("return_member_id").value,
+        book_id: document.getElementById("return_book_id").value
+    };
+
+    const result = await window.api.returnBook(data);
+    alert(result);
+}
+
+async function loadBooks(){
+    const books = await window.api.getBooks();
+
+    const table = document.getElementById("bookTable");
+    if (!table) return;
+
+    table.innerHTML = "";
 
     books.forEach(book => {
-        output.innerHTML += 
-            `${book.book_id} | ${book.title} | ${book.author} | copies: ${book.copies}\n`;
+        const row = `
+            <tr>
+                <td>${book.book_id}</td>
+                <td>${book.title}</td>
+                <td>${book.author}</td>
+                <td>${book.copies}</td>
+            </tr>
+        `;
+        table.innerHTML += row;
     });
 }
+
+window.onload = loadBooks;
+

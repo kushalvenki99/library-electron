@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Books</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="header">
+    <img src="download (1).jpg" class="logo" alt="logo">
+    <div>
+        <h1>Indira Shiva Rao Polytechnic</h1>
+        <h2>Library Management System</h2>
+    </div>
+</div>
+
+
+<div class="nav">
+    <button onclick="goTo('index.html')">Add Book</button>
+    <button onclick="goTo('register.html')">Register Member</button>
+    <button onclick="goTo('borrow.html')">Borrow / Return</button>
+    <button class="active">View Books</button>
+</div>
+
+
+<div class="container">
+
+    <div class="form-box" style="width:100%;">
+        <h3>All Books</h3>
+
+        <button class="primary-btn" onclick="loadBooks()">Refresh</button>
+
+        <table border="1" width="100%" style="margin-top:10px; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Copies</th>
+                </tr>
+            </thead>
+            <tbody id="bookTable">
+                
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

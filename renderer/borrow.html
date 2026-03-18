@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrow / Return Book</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="header">
+    <img src="download (1).jpg" class="logo" alt="logo">
+    <div>
+        <h1>Indira Shiva Rao Polytechnic</h1>
+        <h2>Library Management System</h2>
+    </div>
+</div>
+
+
+<div class="nav">
+    <button onclick="goTo('index.html')">Add Book</button>
+    <button onclick="goTo('register.html')">Register Member</button>
+    <button class="active">Borrow / Return</button>
+    <button onclick="goTo('viewbook.html')">View Books</button>
+</div>
+
+
+<div class="container">
+
+    
+    <div class="form-box">
+        <h3>Borrow Book</h3>
+
+        <label>Member ID</label>
+        <input type="text" id="borrow_member_id">
+
+        <label>Book ID</label>
+        <input type="text" id="borrow_book_id">
+
+        <button class="primary-btn" onclick="borrowBook()">Borrow</button>
+    </div>
+
+    
+    <div class="form-box">
+        <h3>Return Book</h3>
+
+        <label>Member ID</label>
+        <input type="text" id="return_member_id">
+
+        <label>Book ID</label>
+        <input type="text" id="return_book_id">
+
+        <button class="primary-btn" onclick="returnBook()">Return</button>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

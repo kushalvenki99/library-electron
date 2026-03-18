@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Member</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="header">
+    <img src="download (1).jpg" class="logo" alt="logo">
+    <div>
+        <h1>Indira Shiva Rao Polytechnic</h1>
+        <h2>Library Management System</h2>
+    </div>
+</div>
+
+
+<div class="nav">
+    <button onclick="goTo('index.html')">Add Book</button>
+    <button class="active">Register Member</button>
+    <button onclick="goTo('borrow.html')">Borrow / Return</button>
+    <button onclick="goTo('viewbook.html')">View Books</button>
+</div>
+
+
+<div class="container">
+
+    <div class="form-box">
+        <h3>Register Member</h3>
+
+        <label>Member ID</label>
+        <input type="text" id="member_id">
+
+        <label>Member Name</label>
+        <input type="text" id="member_name">
+
+        <button class="primary-btn" onclick="registerMember()">Register</button>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,24 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Library Management System</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Library Management System</h1>
 
-<input id="book_id" placeholder="Book ID">
-<input id="title" placeholder="Title">
-<input id="author" placeholder="Author">
-<input id="copies" placeholder="Copies">
+<div class="header">
+    <img src="download (1).jpg" class="logo" alt="logo">
+    <div>
+        <h1>Indira Shiva Rao Polytechnic</h1>
+        <h2>Library Management System</h2>
+    </div>
+</div>
 
-<button onclick="addBook()">Add Book</button>
-<button onclick="showBooks()">Show Books</button>
 
-<pre id="output"></pre>
+
+
+<div class="nav">
+    <button class="active">Add Book</button>
+    <button onclick="goTo('register.html')">Register Member</button>
+    <button onclick="goTo('borrow.html')">Borrow / Return</button>
+    <button onclick="goTo('viewbook.html')">View Books</button>
+</div>
+
+
+<div class="container">
+
+    
+    <div class="form-box">
+        <h3>Add Book</h3>
+
+        <label>Book ID</label>
+        <input type="text">
+
+        <label>Title</label>
+        <input type="text">
+
+        <label>Author</label>
+        <input type="text">
+
+        <label>Copies</label>
+        <input type="number">
+
+        <button class="primary-btn" onclick="addBook()">Add Book</button>
+    </div>
+
+    <div class="notification-box">
+        <h3>Books Due for Return</h3>
+
+        <div class="notify-item">
+            <span> Python Programming</span>
+            <small>Due: 25 Apr 2024<br>Member: Rajesh</small>
+        </div>
+
+        <div class="notify-item">
+            <span> Data Science Basics</span>
+            <small>Due: 26 Apr 2024<br>Member: Priya</small>
+        </div>
+
+        <div class="notify-item overdue">
+            <span> Java Fundamentals</span>
+            <small>Overdue!<br>Member: Anil</small>
+        </div>
+
+        <a href="#" class="view-all">View All →</a>
+    </div>
+
+</div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
