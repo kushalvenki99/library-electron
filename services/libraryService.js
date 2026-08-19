@@ -1,44 +1,89 @@
 const db = require("../db");
 
-// ✅ Add Book
+
 function addBook(book_id, title, author, copies) {
     return new Promise((resolve) => {
         db.run(
             "INSERT INTO books VALUES (?, ?, ?, ?)",
             [book_id, title, author, copies],
             function (err) {
-                if (err) return resolve("Error: " + err.message);
+                if (err) {
+                    return resolve("Error: " + err.message);
+                }
+
                 resolve("Book added successfully");
             }
         );
     });
 }
 
-// ✅ Get All Books
+
 function getAllBooks() {
     return new Promise((resolve) => {
-        db.all("SELECT * FROM books", [], (err, rows) => {
-            if (err) return resolve([]);
-            resolve(rows);
-        });
+        db.all(
+            "SELECT * FROM books",
+            [],
+            (err, rows) => {
+                if (err) {
+                    console.error("Get books error:", err);
+                    return resolve([]);
+                }
+
+                resolve(rows);
+            }
+        );
     });
 }
 
-// ✅ Register Member
-function registerMember(member_id, name) {
-    return new Promise((resolve) => {
+
+function registerMember(member_id, member_name) {
+    return new Promise((resolve, reject) => {
+
+        const sql = `
+            INSERT INTO members (member_id, member_name)
+            VALUES (?, ?)
+        `;
+
         db.run(
-            "INSERT INTO members VALUES (?, ?)",
-            [member_id, name],
+            sql,
+            [member_id, member_name],
             function (err) {
-                if (err) return resolve("Error: " + err.message);
+
+                if (err) {
+                    console.error("Register member error:", err);
+                    reject(err);
+                    return;
+                }
+
                 resolve("Member registered successfully");
             }
         );
     });
 }
 
-// ✅ Borrow Book
+
+function getMembers() {
+    return new Promise((resolve, reject) => {
+
+        db.all(
+            "SELECT member_id, member_name FROM members",
+            [],
+            (err, rows) => {
+
+                if (err) {
+                    console.error("Get members error:", err);
+                    reject(err);
+                    return;
+                }
+
+                resolve(rows);
+            }
+        );
+    });
+}
+
+
+
 function borrowBook(member_id, book_id) {
     return new Promise((resolve) => {
 
@@ -47,14 +92,26 @@ function borrowBook(member_id, book_id) {
             [book_id],
             (err, book) => {
 
-                if (!book) return resolve("Book not found");
-                if (book.copies <= 0) return resolve("No copies available");
+                if (err) {
+                    return resolve("Error: " + err.message);
+                }
+
+                if (!book) {
+                    return resolve("Book not found");
+                }
+
+                if (book.copies <= 0) {
+                    return resolve("No copies available");
+                }
 
                 db.run(
                     "INSERT INTO borrowed_books VALUES (?, ?)",
                     [member_id, book_id],
                     (err) => {
-                        if (err) return resolve("Error: " + err.message);
+
+                        if (err) {
+                            return resolve("Error: " + err.message);
+                        }
 
                         db.run(
                             "UPDATE books SET copies = copies - 1 WHERE book_id = ?",
@@ -69,14 +126,23 @@ function borrowBook(member_id, book_id) {
     });
 }
 
-// ✅ Return Book
+
+
 function returnBook(member_id, book_id) {
     return new Promise((resolve) => {
 
         db.run(
             "DELETE FROM borrowed_books WHERE member_id = ? AND book_id = ?",
             [member_id, book_id],
-            function () {
+            function (err) {
+
+                if (err) {
+                    return resolve("Error: " + err.message);
+                }
+
+                if (this.changes === 0) {
+                    return resolve("Borrow record not found");
+                }
 
                 db.run(
                     "UPDATE books SET copies = copies + 1 WHERE book_id = ?",
@@ -89,10 +155,13 @@ function returnBook(member_id, book_id) {
     });
 }
 
+
+
 module.exports = {
     addBook,
     getAllBooks,
     registerMember,
+    getMembers,
     borrowBook,
     returnBook
 };

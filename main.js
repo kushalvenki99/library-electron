@@ -7,18 +7,21 @@ function createWindow() {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
+
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
-            contextIsolation: true
+            contextIsolation: true,
+            nodeIntegration: false
         }
     });
 
-    win.loadFile("./renderer/index.html");
+    win.loadFile(path.join(__dirname, "renderer", "index.html"));
 }
+
 
 app.whenReady().then(createWindow);
 
-// ✅ Backend APIs only
+
 ipcMain.handle("add-book", async (event, data) => {
     return await libraryService.addBook(
         data.book_id,
@@ -28,16 +31,26 @@ ipcMain.handle("add-book", async (event, data) => {
     );
 });
 
+
+
 ipcMain.handle("get-books", async () => {
     return await libraryService.getAllBooks();
 });
 
+
 ipcMain.handle("register-member", async (event, data) => {
-    return await libraryService.registerMember(
-        data.member_id,
-        data.name
-    );
+    try {
+        return await libraryService.registerMember(
+            data.member_id,
+            data.member_name
+        );
+    } catch (error) {
+        console.error("Register Member Error:", error);
+        return "Failed to register member";
+    }
 });
+
+
 
 ipcMain.handle("borrow-book", async (event, data) => {
     return await libraryService.borrowBook(
@@ -46,9 +59,20 @@ ipcMain.handle("borrow-book", async (event, data) => {
     );
 });
 
+
+
 ipcMain.handle("return-book", async (event, data) => {
     return await libraryService.returnBook(
         data.member_id,
         data.book_id
     );
+});
+
+ipcMain.handle("get-members", async () => {
+    try {
+        return await libraryService.getMembers();
+    } catch (error) {
+        console.error("Get Members Error:", error);
+        throw error;
+    }
 });

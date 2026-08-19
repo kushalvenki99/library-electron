@@ -15,7 +15,7 @@ db.serialize(() => {
     db.run(`
         CREATE TABLE IF NOT EXISTS members (
             member_id TEXT PRIMARY KEY,
-            name TEXT
+            member_name TEXT NOT NULL
         )
     `);
 
